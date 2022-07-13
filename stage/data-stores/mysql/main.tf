@@ -13,17 +13,3 @@ resource "aws_db_instance" "example" {
   skip_final_snapshot = true
 }
 
-#data "aws_secretsmanager_secret_version" "db_password" {
-#  secret_id = "mysql-master-password-stage"
-#}
-
-#data "terraform_remote_state" "db" {
-#  backend = s3
-#
-#  config = {
-#    bucket = "tf-up-and-running-state-jm"
-#    key    = "stage/data-stores/mysql/terraform.tfstate"
-#    region = "us-east-2"
-#  }
-#}
-

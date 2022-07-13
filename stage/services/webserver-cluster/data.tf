@@ -8,3 +8,12 @@ data "aws_subnets" "default" {
     values = [data.aws_vpc.default.id]
   }
 }
+
+data "terraform_remote_state" "db" {
+  backend = "s3"
+  config = {
+    bucket = "tf-up-and-running-state-jm"
+    key    = "stage/data-stores/mysql/terraform.tfstate"
+    region = "us-east-2"
+  }
+}
