@@ -5,12 +5,12 @@ provider "aws" {
 module "data-stores" {
   source = "../../../modules/data-stores/mysql"
 
-  identifier_prefix     = "webservers-stage"
+  identifier_prefix     = "data-store-prod"
   db_remote_bucket_name = "tf-up-and-running-state-jm"
   db_remote_bucket_key  = "stage/data-stores/mysql/terraform.tfstate"
   allocated_storage     = 10
   engine                = "mysql"
   instance_class        = "db.t2.micro"
-  db_name               = "stage"
+  db_name               = "prod"
   username              = "admin"
 }

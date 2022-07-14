@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
-    bucket = "tf-up-and-running-state-jm"
-    key    = "stage/data-stores/mysql/terraform.tfstate"
+    bucket = var.db_remote_bucket_name
+    key    = var.db_remote_bucket_key
     region = "us-east-2"
 
     # Replace this with your DynamoDB table name!
