@@ -86,31 +86,36 @@ resource "aws_lb_target_group" "asg" {
 
 resource "aws_security_group" "instance" {
   name = "${var.cluster_name}-terraform-asg-instance"
+}
 
-  ingress {
-    from_port   = var.server_port
-    to_port     = var.server_port
-    protocol    = local.protocol
-    cidr_blocks = local.all_ips
-  }
+resource "aws_security_group_rule" "allow_http_inbound_to_instance" {
+  type              = "ingress"
+  cidr_blocks       = local.all_ips
+  from_port         = var.server_port
+  protocol          = local.tcp_protocol
+  security_group_id = aws_security_group.instance.id
+  to_port           = var.server_port
+  description       = "Allow inbound traffic to the ASG instances Security Group rule"
 }
 
 resource "aws_security_group" "alb" {
   name = "${var.cluster_name}-terraform-sg"
+}
 
-  # Allow inbound HTTP requests
-  ingress {
-    from_port   = local.http_port
-    to_port     = local.http_port
-    protocol    = local.protocol
-    cidr_blocks = local.all_ips
-  }
+resource "aws_security_group_rule" "allow_http_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.alb.id
+  from_port         = local.http_port
+  to_port           = local.http_port
+  protocol          = local.tcp_protocol
+  cidr_blocks       = local.all_ips
+}
 
-  # Allow outbound requests
-  egress {
-    from_port   = local.any_port
-    to_port     = local.any_port
-    protocol    = local.any_protocol
-    cidr_blocks = local.all_ips
-  }
+resource "aws_security_group_rule" "allow_all_outbound" {
+  type              = "egress"
+  security_group_id = aws_security_group.alb.id
+  from_port         = local.any_port
+  to_port           = local.any_port
+  protocol          = local.any_protocol
+  cidr_blocks       = local.all_ips
 }

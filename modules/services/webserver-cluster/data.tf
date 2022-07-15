@@ -12,14 +12,14 @@ data "aws_subnets" "default" {
 data "terraform_remote_state" "db" {
   backend = "s3"
   config = {
-    bucket = "${var.db_remote_state_bucket}"
-    key    = "${var.db_remote_state_key}"
+    bucket = module.dasta-stores.db_remote_bucket_name
+    key    = module.data-stores.db_remote_bucket_key
     region = "us-east-2"
   }
 }
 
 data "template_file" "user_data" {
-  template = file("user-data.sh")
+  template = file("${path.module}/user-data.sh")
 
   vars = {
     server_port = var.server_port
