@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_db_instance" "example" {
-  identifier_prefix   = var.identifier_prefix
+  identifier_prefix   = var.indentifier_prefix
   allocated_storage   = var.allocated_storage
   engine              = var.engine
   instance_class      = var.instance_class
@@ -12,4 +12,3 @@ resource "aws_db_instance" "example" {
   username            = var.username
   skip_final_snapshot = true
 }
-

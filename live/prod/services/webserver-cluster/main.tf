@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-2"
 }
 
-module "webserver_cluster" {
+module "webserver-cluster" {
   source = "../../../modules/services/webserver-cluster"
 
   cluster_name       = "webservers-prod"
@@ -15,8 +15,8 @@ module "webserver_cluster" {
 }
 
 resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
-  depends_on             = [module.webserver_cluster.asg_name]
-  autoscaling_group_name = module.webserver_cluster.asg_name
+  depends_on             = [module.webserver-cluster.asg_name]
+  autoscaling_group_name = module.webserver-cluster.asg_name
   scheduled_action_name  = "scale-out-during-business-hours"
   min_size               = 2
   max_size               = 10
@@ -25,8 +25,8 @@ resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
 }
 
 resource "aws_autoscaling_schedule" "scale_in_at_night" {
-  depends_on             = [module.webserver_cluster.asg_name]
-  autoscaling_group_name = module.webserver_cluster.asg_name
+  depends_on             = [module.webserver-cluster.asg_name]
+  autoscaling_group_name = module.webserver-cluster.asg_name
   scheduled_action_name  = "scale-in-at-night"
   min_size               = 2
   max_size               = 10

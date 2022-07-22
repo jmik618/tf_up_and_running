@@ -2,7 +2,7 @@ resource "aws_launch_configuration" "example" {
   image_id        = "ami-03fd5809787d564a0"
   instance_type   = var.instance_type
   security_groups = [aws_security_group.instance.id]
-  user_data       = data.template_file.user_data.rendered
+  #user_data       = data.templatefile.user_data.rendered
 
   # Required when using a launch configuration with an auto scaling group.
   # https://www.terraform.io/docs/providers/aws/r/launch_configuration.html
@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "example" {
 }
 
 resource "aws_lb" "example" {
-  name               = "${var.cluster_name}-terraform-asg-alb"
+  name               = "${var.cluster_name}-asg-alb"
   load_balancer_type = "application"
   subnets            = data.aws_subnets.default.ids
   security_groups    = [aws_security_group.alb.id]
@@ -67,7 +67,7 @@ resource "aws_lb_listener_rule" "asg" {
 }
 
 resource "aws_lb_target_group" "asg" {
-  name     = "${var.cluster_name}-terraform-asg-tg"
+  name     = "${var.cluster_name}-asg-tg"
   port     = var.server_port
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
