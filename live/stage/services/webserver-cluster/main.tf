@@ -14,7 +14,8 @@ provider "aws" {
 }
 
 module "webserver-cluster" {
-  source = "github.com/jmik618/modules.git//services/webserver-cluster?ref=v0.0.2"
+  #source = "github.com/jmik618/modules.git//services/webserver-cluster?ref=v0.0.2"
+  source = "../../../../modules/services/webserver-cluster"
 
   cluster_name           = "webservers-stage"
   db_remote_state_bucket = var.db_remote_state_bucket
@@ -22,8 +23,10 @@ module "webserver-cluster" {
   instance_type          = "t2.micro"
   min_size               = 2
   max_size               = 10
-  enable_autoscaling     = false
-  enable_new_user_data   = true
+  enable_autoscaling     = var.enable_autscaling
 
-
+  custom_tags = {
+    Owner = "DevOps-Stage"
+    DevelopedBy = "terraform"
+  }
 }
