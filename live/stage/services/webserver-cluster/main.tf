@@ -22,4 +22,8 @@ module "webserver-cluster" {
   instance_type          = "t2.micro"
   min_size               = 2
   max_size               = 10
+  enable_autoscaling     = false
+  enable_new_user_data   = true
+
+
 }

@@ -14,11 +14,11 @@ resource "aws_launch_configuration" "example" {
   image_id        = "ami-03fd5809787d564a0"
   instance_type   = var.instance_type
   security_groups = [aws_security_group.instance.id]
-  user_data = templatefile("${path.module}/user-data.sh", {
-    server_port = var.server_port
-    db_address  = data.terraform_remote_state.db.outputs.address
-    db_port     = data.terraform_remote_state.db.outputs.port
-  })
+  user_data = (
+    length(data.template_file.user_data[*]) > 0
+      ? data.template_file.user_data[0].rendered
+      : data.template_file.user_data_new[0].rendered
+    )
 
   # Required when using a launch configuration with an auto scaling group.
   # https://www.terraform.io/docs/providers/aws/r/launch_configuration.html
@@ -42,6 +42,41 @@ resource "aws_autoscaling_group" "example" {
     value               = "${var.cluster_name}-terraform-asg"
     propagate_at_launch = true
   }
+
+  dynamic "tag" {
+    for_each = var.custom_tags
+
+    content {
+      key = tag.key
+      value = tag.value
+      propagate_at_launch = true
+    }
+  }
+}
+
+
+resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
+  count = var.enable_autscaling ? 1 : 0
+
+  depends_on             = [module.webserver-cluster.asg_name]
+  autoscaling_group_name = module.webserver-cluster.asg_name
+  scheduled_action_name  = "scale-out-during-business-hours"
+  min_size               = 2
+  max_size               = 10
+  desired_capacity       = 10
+  recurrence             = "0 9 * * *"
+}
+
+resource "aws_autoscaling_schedule" "scale_in_at_night" {
+  count = var.enable_autscaling ? 1 : 0
+  
+  depends_on             = [module.webserver-cluster.asg_name]
+  autoscaling_group_name = module.webserver-cluster.asg_name
+  scheduled_action_name  = "scale-in-at-night"
+  min_size               = 2
+  max_size               = 10
+  desired_capacity       = 2
+  recurrence             = "0 17 * * *"
 }
 
 resource "aws_lb" "example" {
