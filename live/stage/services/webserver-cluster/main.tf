@@ -23,7 +23,9 @@ module "webserver-cluster" {
   instance_type          = "t2.micro"
   min_size               = 2
   max_size               = 10
-  enable_autoscaling     = var.enable_autscaling
+  enable_autoscaling     = var.enable_autoscaling
+  ami                    = "ami-03fd5809787d564a0"
+  server_text            = "Lets see if this shit works"
 
   custom_tags = {
     Owner = "DevOps-Stage"
