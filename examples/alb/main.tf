@@ -4,9 +4,9 @@ provider "aws" {
 }
 
 module "alb" {
-  source = "github.com/jmik618/tf_up_and_running.git//modules/networking/alb"
+  source = "../../modules/networking/alb"
 
   alb_name = "test-tf-up-and-running"
-  subnet_ids = data.aws_subnet_ids.default.ids
+  subnet_ids = data.aws_subnets.default.ids
   
 }
