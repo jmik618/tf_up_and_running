@@ -1,9 +1,9 @@
 output "address" {
-  value       = module.data-store.address
+  value       = aws_db_instance.example.address
   description = "Connect to the database at this endpoint"
 }
 
 output "port" {
-  value       = module.data-store.port
+  value       = aws_db_instance.example.port
   description = "The port the database is listening on"
 }
