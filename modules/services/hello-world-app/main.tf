@@ -20,6 +20,8 @@ module "data-store" {
   db_name             = "stage"
   db_password         = var.db_password
   username            = "admin"
+  environment         = "prod"
+  skip_final_snapshot = true
 }
 
 module "asg" {
@@ -40,6 +42,8 @@ module "asg" {
   health_check_type = "ELB"
   db_remote_state_bucket = var.db_remote_state_bucket
   db_remote_state_key = var.db_remote_state_key
+  db_address = module.data-store.db_address
+  db_port = module.data-store.db_port
 
   custom_tags = var.custom_tags  
 }

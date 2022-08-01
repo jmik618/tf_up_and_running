@@ -71,3 +71,13 @@ variable "db_remote_state_key" {
   description = "The path for the database's remote state in S3"
   type        = string
 }
+
+variable "db_address" {
+  type = string
+  description = "The address for the mysql database"
+}
+
+variable "db_port" {
+  type = string
+  description = "The port used for administering the mysql database"
+}

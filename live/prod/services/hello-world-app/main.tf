@@ -18,20 +18,25 @@ module "webserver-cluster" {
   source = "../../../../modules/services/hello-world-app"
 
   server_text            = var.server_text
-  environment            = "stage"
+  environment            = "prod"
   db_remote_state_bucket = "tf-up-and-running-state-jm"
-  db_remote_state_key    = "stage/services/webserver-cluster/terraform.tfstate"
+  db_remote_state_key    = "prod/services/webserver-cluster/terraform.tfstate"
   instance_type          = "t2.micro"
-  min_size               = 2
-  max_size               = 10
+  min_size               = 4
+  max_size               = 15
   enable_autoscaling     = false
   ami                    = "ami-03fd5809787d564a0"
-  identifier_prefix      = "data-store-stage"
+  identifier_prefix      = "data-store-prod"
   allocated_storage      = 10
   engine                 = "mysql"
   instance_class         = "db.t2.micro"
-  db_name                = "stage"
+  db_name                = "prod"
   db_password            = var.db_password
   username               = "admin"
-  skip_final_snapshot    = true
+
+  custom_tags = {
+    Owner = "DevOps-Prod"
+    DevelopedBy = "terraform"
+  }
 }
+
