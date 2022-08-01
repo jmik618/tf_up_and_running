@@ -2,12 +2,12 @@ resource "aws_launch_configuration" "example" {
   image_id        = var.ami
   instance_type   = var.instance_type
   security_groups = [aws_security_group.instance.id]
- user_data       = templatefile("${path.module}/user-data.sh", {
-   server_port = var.server_port
-   db_address  = var.db_address
-   db_port     = var.db_port
-   server_text = var.server_text
- })
+  user_data       = templatefile("${path.module}/user-data.sh", {
+    server_port = var.server_port
+    db_address  = var.db_address
+    db_port     = var.db_port
+    server_text = var.server_text
+  })
 
   # Required when using a launch configuration with an auto scaling group.
   # https://www.terraform.io/docs/providers/aws/r/launch_configuration.html

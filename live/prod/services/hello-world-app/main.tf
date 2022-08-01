@@ -24,7 +24,7 @@ module "webserver-cluster" {
   instance_type          = "t2.micro"
   min_size               = 4
   max_size               = 15
-  enable_autoscaling     = false
+  enable_autoscaling     = true
   ami                    = "ami-03fd5809787d564a0"
   identifier_prefix      = "data-store-prod"
   allocated_storage      = 10
