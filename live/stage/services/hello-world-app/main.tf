@@ -34,4 +34,9 @@ module "webserver-cluster" {
   db_password            = var.db_password
   username               = "admin"
   skip_final_snapshot    = true
+
+  custom_tags = {
+    Owner = "DevOps-Stage"
+    DevelopedBy = "terraform"
+  }
 }

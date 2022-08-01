@@ -33,6 +33,7 @@ module "webserver-cluster" {
   db_name                = "prod"
   db_password            = var.db_password
   username               = "admin"
+  skip_final_snapshot    = true
 
   custom_tags = {
     Owner = "DevOps-Prod"
