@@ -26,32 +26,32 @@ module "data-store" {
 
 module "asg" {
   depends_on = [module.data-store]
-  source = "../../cluster/asg-rolling-deploy"
+  source     = "../../cluster/asg-rolling-deploy"
 
-  cluster_name = "hello-world-${var.environment}"
-  ami = var.ami
+  cluster_name  = "hello-world-${var.environment}"
+  ami           = var.ami
   instance_type = var.instance_type
-  server_text = "Lets see if this shit works"
+  server_text   = "Lets see if this shit works"
 
-  min_size = var.min_size
-  max_size = var.max_size
+  min_size           = var.min_size
+  max_size           = var.max_size
   enable_autoscaling = var.enable_autoscaling
 
-  subnet_ids = data.aws_subnets.default.ids
-  target_group_arns = [aws_lb_target_group.asg.arn]
-  health_check_type = "ELB"
+  subnet_ids             = data.aws_subnets.default.ids
+  target_group_arns      = [aws_lb_target_group.asg.arn]
+  health_check_type      = "ELB"
   db_remote_state_bucket = var.db_remote_state_bucket
-  db_remote_state_key = var.db_remote_state_key
-  db_address = module.data-store.db_address
-  db_port = module.data-store.db_port
+  db_remote_state_key    = var.db_remote_state_key
+  db_address             = module.data-store.db_address
+  db_port                = module.data-store.db_port
 
-  custom_tags = var.custom_tags  
+  custom_tags = var.custom_tags
 }
 
 module "alb" {
   source = "../../networking/alb"
 
-  alb_name = "hello-world-${var.environment}"
+  alb_name   = "hello-world-${var.environment}"
   subnet_ids = data.aws_subnets.default.ids
 }
 

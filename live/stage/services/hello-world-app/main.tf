@@ -36,7 +36,7 @@ module "webserver-cluster" {
   skip_final_snapshot    = true
 
   custom_tags = {
-    Owner = "DevOps-Stage"
+    Owner       = "DevOps-Stage"
     DevelopedBy = "terraform"
   }
 }

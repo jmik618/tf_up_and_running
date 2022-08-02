@@ -1,5 +1,5 @@
 variable "alb_name" {
-  type = string
+  type        = string
   description = "The name to use for this ALB"
 }
 

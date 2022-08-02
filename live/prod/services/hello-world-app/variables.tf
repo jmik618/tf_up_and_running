@@ -1,7 +1,7 @@
 variable "server_text" {
-  type = string
+  type        = string
   description = "The text the webs server should return"
-  default = "Does this shit work?!?"
+  default     = "Does this shit work?!?"
 }
 
 variable "db_password" {

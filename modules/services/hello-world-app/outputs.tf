@@ -9,17 +9,17 @@ output "asg_name" {
 }
 
 output "asg_instance_security_group_id" {
-  value = module.asg.asg_instance_security_group_id
+  value       = module.asg.asg_instance_security_group_id
   description = "The ID of the EC2 Instance Security Group"
 }
 
 output "alb_http_listener_arn" {
-  value = module.alb.alb_http_listener_arn
+  value       = module.alb.alb_http_listener_arn
   description = "The ARN of the HTTP listener"
 }
 
 output "alb_security_group_id" {
-  value = module.alb.alb_security_group_id
+  value       = module.alb.alb_security_group_id
   description = "The ALB Security Group ID"
 }
 

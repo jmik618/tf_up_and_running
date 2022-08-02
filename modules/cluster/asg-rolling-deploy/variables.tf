@@ -4,7 +4,7 @@ variable "cluster_name" {
 }
 
 variable "ami" {
-  type = string
+  type        = string
   description = "The AMI to run in the cluster"
 }
 
@@ -30,36 +30,36 @@ variable "server_port" {
 }
 
 variable "enable_autoscaling" {
-  type = bool
+  type        = bool
   description = "If set to true, enable auto scaling"
 }
 
 variable "custom_tags" {
-  type = map(string)
+  type        = map(string)
   description = "Custom tags to set on the Instances in the ASG"
-  default = {}
+  default     = {}
 }
 
 variable "server_text" {
-  type = string
+  type        = string
   description = "The text the web server should return"
 }
 
 variable "subnet_ids" {
-  type = list(string)
+  type        = list(string)
   description = "The subnet IDs to deploy to"
 }
 
 variable "target_group_arns" {
-  type = list(string)
+  type        = list(string)
   description = "The ARNs of ELB target groups in which to register Instances"
-  default = []
+  default     = []
 }
 
 variable "health_check_type" {
-  type = string
+  type        = string
   description = "The type of health check to perform. Must be on of: EC2, ELB."
-  default = "EC2"
+  default     = "EC2"
 }
 
 variable "db_remote_state_bucket" {
@@ -73,11 +73,11 @@ variable "db_remote_state_key" {
 }
 
 variable "db_address" {
-  type = string
+  type        = string
   description = "The address for the mysql database"
 }
 
 variable "db_port" {
-  type = string
+  type        = string
   description = "The port used for administering the mysql database"
 }

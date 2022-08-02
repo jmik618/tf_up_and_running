@@ -15,7 +15,7 @@ variable "server_port" {
 }
 
 variable "environment" {
-  type = string
+  type        = string
   description = "The name of the environment we're deploying to"
 }
 
@@ -30,7 +30,7 @@ variable "max_size" {
 }
 
 variable "ami" {
-  type = string
+  type        = string
   description = "The AMI to run in the cluster"
 }
 
@@ -40,18 +40,18 @@ variable "instance_type" {
 }
 
 variable "server_text" {
-  type = string
+  type        = string
   description = "The text the web server should return"
 }
 
 variable "custom_tags" {
-  type = map(string)
+  type        = map(string)
   description = "Custom tags to set on the Instances in the ASG"
-  default = {}
+  default     = {}
 }
 
 variable "enable_autoscaling" {
-  type = string
+  type        = string
   description = "If set to true, enable auto scaling"
 }
 
@@ -63,41 +63,41 @@ variable "db_password" {
 variable "db_name" {
   type        = string
   description = "The name of the mysql database"
-  default = "stage"
+  default     = "stage"
 }
 
 variable "db_username" {
   type        = string
   description = "The username of the user to be configured to log into the mysql database"
-  default = "admin"
+  default     = "admin"
 }
 
 variable "identifier_prefix" {
-  type = string
+  type        = string
   description = "The database identifier prefix that will be listed as part of the DB identifier"
 }
 
 variable "allocated_storage" {
-  type = string
+  type        = string
   description = "The amount of storage that should be allocated to the database"
 }
 
 variable "engine" {
-  type = string
+  type        = string
   description = "The type of database engine that should be deployed. I.E. 'mysql', 'postgres' or 'oracle'"
 }
 
 variable "instance_class" {
-  type = string
+  type        = string
   description = "The database server instance class type. I.E. 'db.t2.micro', 'db.t2.large' etc."
 }
 
 variable "username" {
-  type = string
+  type        = string
   description = "The admin username to log into the database"
 }
 
 variable "skip_final_snapshot" {
-  type = string
+  type        = string
   description = "Whether a final snapshot should be taken of the database before destruction. This is either 'true' or 'false'"
 }
